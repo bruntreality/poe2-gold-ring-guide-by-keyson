@@ -81,9 +81,32 @@
     li { margin: 6px 0; }
     .mini-flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px; }
     .mini-flow span { display: grid; place-items: center; min-height: 64px; text-align: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel2); color: var(--muted); padding: 8px; font-size: .86rem; }
+
+    .currency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px; }
+    .currency-card { display: grid; grid-template-columns: 50px 1fr; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 7px; background: #121823; padding: 10px; min-height: 76px; }
+    .currency-card img, .flow-node img, .icon-chip img, .recovery-start img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 5px 8px rgba(0,0,0,.35)); }
+    .currency-card strong, .flow-node strong, .recovery-card strong { display: block; color: var(--text); font-size: .88rem; line-height: 1.2; }
+    .currency-card span, .flow-node span, .recovery-card span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.3; margin-top: 3px; }
+    .visual-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 20px; margin-top: 14px; }
+    .flow-node { position: relative; border: 1px solid var(--line); border-radius: 8px; background: #121823; padding: 12px; min-height: 154px; display: grid; align-content: start; gap: 8px; }
+    .flow-node::after { content: '>'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--gold); font-weight: 900; font-size: 1.1rem; }
+    .flow-node:nth-child(4)::after, .flow-node:last-child::after { display: none; }
+    .flow-node:nth-child(4) { border-color: #54466f; }
+    .icon-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; min-height: 46px; }
+    .icon-chip { display: inline-grid; place-items: center; width: 45px; height: 45px; border: 1px solid rgba(255,255,255,.08); border-radius: 7px; background: rgba(255,255,255,.04); }
+    .recovery-map { display: grid; grid-template-columns: 210px repeat(3, 1fr); gap: 10px; margin-top: 12px; align-items: stretch; }
+    .recovery-start, .recovery-card { border: 1px solid var(--line); border-radius: 8px; background: #121823; padding: 12px; }
+    .recovery-start { display: grid; align-content: center; justify-items: center; text-align: center; gap: 8px; border-color: #80634a; background: #201a15; }
+    .recovery-card { min-height: 138px; position: relative; }
+    .recovery-card::before { content: '>'; position: absolute; left: -12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-weight: 900; }
+    .recovery-card.good { border-color: #2f895a; background: #102019; }
+    .recovery-card.warn { border-color: #8d7130; background: #211e12; }
+    .recovery-card.bad { border-color: #9a4141; background: #2a171b; }
+    .asset-note { color: var(--muted); font-size: .78rem; margin-top: 10px; }
     @media (max-width: 980px) {
       .hero, .step { grid-template-columns: 1fr; }
-      .grid, .decision, .mini-flow { grid-template-columns: 1fr; }
+      .grid, .decision, .mini-flow, .visual-flow, .recovery-map { grid-template-columns: 1fr; }
+      .flow-node::after, .recovery-card::before { display: none; }
     }
   </style>
 </head>
@@ -106,15 +129,52 @@
     </div>
   </section>
 
+
   <section class="panel">
     <h2>Fast Visual Flow</h2>
-    <div class="mini-flow">
-      <span>Buy ilvl 82+ fractured cold Gold Ring</span>
-      <span>Chaos until one T1 elemental res</span>
-      <span>Breach essence for +20 max quality</span>
-      <span>Catalyst-weighted Perfect Exalt for second T1 res</span>
-      <span>Reaver to 40%, then remove max-quality mod</span>
-      <span>Block, Whittle, settle, price check</span>
+    <div class="visual-flow">
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Gold_Ring_inventory_icon.png" alt="Gold Ring icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>1. Base + First Res</strong><span>Buy fractured cold Gold Ring, then Chaos until one T1 elemental resistance.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Sinistral_Crystallisation_inventory_icon.png" alt="Omen of Sinistral Crystallisation icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Essence_of_the_Breach_inventory_icon.png" alt="Essence of the Breach icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>2. Add Breach Quality</strong><span>Use Sinistral Crystallisation with Essence of the Breach to get +20 max quality.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Xoph%27s_Catalyst_inventory_icon.png" alt="Xoph's Catalyst icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Esh%27s_Catalyst_inventory_icon.png" alt="Esh's Catalyst icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Dextral_Exaltation_inventory_icon.png" alt="Omen of Dextral Exaltation icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Catalysing_Exaltation_inventory_icon.png" alt="Omen of Catalysing Exaltation icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Exalted_Orb_inventory_icon.png" alt="Perfect Exalted Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>3. Slam Second Res</strong><span>Use catalyst weighting plus suffix-only Perfect Exalt to chase the second T1 res.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>4. If It Misses</strong><span>Naked Annul only. Follow the recovery chart below before you re-Breach or chaos spam.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Reaver_Catalyst_inventory_icon.png" alt="Reaver Catalyst icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Sinistral_Annulment_inventory_icon.png" alt="Omen of Sinistral Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>5. Strand 40% Attack Quality</strong><span>Reaver to 40%, then Sinistral Annul removes the Breach max-quality mod.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Ancient_Collarbone_inventory_icon.png" alt="Ancient Collarbone icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Light_inventory_icon.png" alt="Omen of Light icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>6. Add Blocker</strong><span>Use the preserved-bone blocker setup, removing bad blocker hits with Light + Annul.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Whittling_inventory_icon.png" alt="Omen of Whittling icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Perfect Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Greater Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>7. Whittle For Value</strong><span>Perfect Chaos for prefixes, Greater Chaos for suffixes. Stop on sellable outcomes.</span></div>
+      <div class="flow-node"><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Light_inventory_icon.png" alt="Omen of Light icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span></div><strong>8. Clean And Sell</strong><span>Remove the temporary blocker, price check, and do not keep gambling past market value.</span></div>
+    </div>
+    <p class="asset-note">Item icons are loaded from PoE2 Wiki file pages so the guide stays lightweight on GitHub Pages.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Miss Recovery Flow</h2>
+    <p>Use this only after the second-resistance Perfect Exalt misses. This is the correction Keyson called out.</p>
+    <div class="recovery-map">
+      <div class="recovery-start"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"><strong>Naked Annul</strong><span>No Dextral Annul here.</span></div>
+      <div class="recovery-card good"><strong>Bad suffix removed</strong><span>You are back to a clean attempt. Reapply the catalyst/exalt setup and slam again.</span><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Xoph%27s_Catalyst_inventory_icon.png" alt="Xoph's Catalyst icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Exalted_Orb_inventory_icon.png" alt="Perfect Exalted Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div></div>
+      <div class="recovery-card warn"><strong>Breach mod removed</strong><span>Annul again first. If the bad suffix comes off, then re-Breach. If the good res comes off, chaos spam.</span><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Essence_of_the_Breach_inventory_icon.png" alt="Essence of the Breach icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div></div>
+      <div class="recovery-card bad"><strong>Good res removed</strong><span>Annul again, then go back to chaos spam for the resistance setup.</span><div class="icon-row"><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"></span><span class="icon-chip"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"></span></div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Currency Image Cheat Sheet</h2>
+    <div class="currency-grid">
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Chaos Orb</strong><span>Rolls first T1 res and resets when recovery fails.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Essence_of_the_Breach_inventory_icon.png" alt="Essence of the Breach icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Essence of the Breach</strong><span>Adds +20 maximum jewellery quality.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Xoph%27s_Catalyst_inventory_icon.png" alt="Xoph's Catalyst icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Xoph's Catalyst</strong><span>Weights fire resistance for the second-res slam.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Esh%27s_Catalyst_inventory_icon.png" alt="Esh's Catalyst icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Esh's Catalyst</strong><span>Weights lightning resistance for the second-res slam.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Reaver_Catalyst_inventory_icon.png" alt="Reaver Catalyst icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Reaver Catalyst</strong><span>Sets 40% attack-modifier quality before dumping Breach.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Exalted_Orb_inventory_icon.png" alt="Perfect Exalted Orb icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Perfect Exalted Orb</strong><span>Used with Dextral + Catalysing omens for the second suffix.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Orb_of_Annulment_inventory_icon.png" alt="Orb of Annulment icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Orb of Annulment</strong><span>Naked for miss recovery; omen-guided later for cleanup.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Whittling_inventory_icon.png" alt="Omen of Whittling icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Omen of Whittling</strong><span>Targets the lowest-level modifier during Chaos loops.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Perfect Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Perfect Chaos Orb</strong><span>Prefix-focused Whittling work.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Chaos_Orb_inventory_icon.png" alt="Greater Chaos Orb icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Greater Chaos Orb</strong><span>Suffix-focused Whittling work.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Light_inventory_icon.png" alt="Omen of Light icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Omen of Light</strong><span>Annul only the temporary desecrated/blocker mod.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Ancient_Collarbone_inventory_icon.png" alt="Ancient Collarbone icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Ancient Collarbone</strong><span>Adds the temporary preserved-bone blocker.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Sinistral_Crystallisation_inventory_icon.png" alt="Omen of Sinistral Crystallisation icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Sinistral Crystallisation</strong><span>Makes the Breach essence remove a prefix.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Dextral_Exaltation_inventory_icon.png" alt="Omen of Dextral Exaltation icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Dextral Exaltation</strong><span>Makes the Perfect Exalt add a suffix.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Catalysing_Exaltation_inventory_icon.png" alt="Omen of Catalysing Exaltation icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Catalysing Exaltation</strong><span>Uses catalyst weighting on the Exalt slam.</span></div></div>
+      <div class="currency-card"><img src="https://www.poe2wiki.net/wiki/Special:FilePath/Omen_of_Sinistral_Annulment_inventory_icon.png" alt="Omen of Sinistral Annulment icon" loading="lazy" referrerpolicy="no-referrer"><div><strong>Sinistral Annulment</strong><span>Later removes the Breach max-quality prefix.</span></div></div>
     </div>
   </section>
 
