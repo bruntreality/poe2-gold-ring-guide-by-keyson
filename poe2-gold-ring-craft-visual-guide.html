@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PoE2 Gold Ring Craft Visual Guide</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0e1117;
+      --panel: #171c26;
+      --panel2: #202838;
+      --line: #364158;
+      --text: #edf3ff;
+      --muted: #aeb8cc;
+      --gold: #e4bd62;
+      --blue: #74b7ff;
+      --green: #78d89b;
+      --red: #ff7474;
+      --warn: #ffd36b;
+      --purple: #bda5ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: radial-gradient(circle at top left, #252b3a, var(--bg) 420px);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    main { max-width: 1200px; margin: 0 auto; padding: 28px 18px 60px; }
+    h1, h2, h3 { margin: 0; line-height: 1.12; }
+    h1 { font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 0; }
+    h2 { color: var(--gold); font-size: 1.45rem; margin-bottom: 12px; }
+    h3 { font-size: 1rem; margin-bottom: 7px; }
+    p { margin: 8px 0; color: var(--muted); }
+    a { color: #9ecaff; }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; margin-bottom: 18px; }
+    .panel, .hero-copy, .ring-card, .step, .callout {
+      background: color-mix(in srgb, var(--panel) 94%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .hero-copy, .panel { padding: 20px; }
+    .tag { color: var(--gold); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 800; margin-bottom: 12px; }
+    .ring-card { padding: 16px; background: linear-gradient(180deg, #241d10, #11151d); border-color: #5a4824; }
+    .item-name { text-align: center; color: var(--gold); font-weight: 900; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid #57451f; padding-bottom: 8px; margin-bottom: 10px; }
+    .item-line { padding: 8px 10px; margin: 8px 0; border-radius: 6px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.07); }
+    .fractured { color: var(--purple); }
+    .prefix { color: var(--blue); }
+    .suffix { color: var(--green); }
+    .quality { color: var(--warn); }
+    .bad-text { color: var(--red); font-weight: 800; }
+    .good-text { color: var(--green); font-weight: 800; }
+    .warn-text { color: var(--warn); font-weight: 800; }
+    .panel { margin: 16px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .pill { border: 1px solid var(--line); border-radius: 7px; background: var(--panel2); padding: 10px; color: var(--muted); min-height: 54px; }
+    .flow { display: grid; gap: 12px; margin-top: 16px; }
+    .step { display: grid; grid-template-columns: 170px 1fr 315px; gap: 16px; align-items: start; padding: 16px; }
+    .num { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #6e5728; background: #2c2414; color: var(--gold); font-weight: 900; font-size: 1.1rem; margin-bottom: 10px; }
+    .state { border: 1px solid var(--line); border-radius: 8px; background: #10151e; padding: 10px; display: grid; gap: 8px; }
+    .slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .slot { min-height: 48px; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: #151b27; color: var(--muted); font-size: .83rem; }
+    .slot strong { display: block; color: var(--text); font-size: .78rem; margin-bottom: 2px; }
+    .locked { border-color: #7c67d8; background: #1b1730; }
+    .good { border-color: #2f895a; background: #12241b; }
+    .bad { border-color: #9a4141; background: #2a171b; }
+    .open { border-style: dashed; }
+    .temp { border-color: #8d7130; background: #28230f; }
+    .callout { padding: 12px; margin: 12px 0; border-left: 4px solid var(--warn); }
+    .callout.bad { border-left-color: var(--red); }
+    .callout.good { border-left-color: var(--green); }
+    .decision { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .decision div { border: 1px solid var(--line); background: #121823; border-radius: 6px; padding: 10px; min-height: 78px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
+    th { color: var(--gold); background: #1a2130; }
+    td { color: var(--muted); background: #121823; }
+    ol, ul { color: var(--muted); padding-left: 22px; }
+    li { margin: 6px 0; }
+    .mini-flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px; }
+    .mini-flow span { display: grid; place-items: center; min-height: 64px; text-align: center; border: 1px solid var(--line); border-radius: 7px; background: var(--panel2); color: var(--muted); padding: 8px; font-size: .86rem; }
+    @media (max-width: 980px) {
+      .hero, .step { grid-template-columns: 1fr; }
+      .grid, .decision, .mini-flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="tag">Runes of Aldur - advanced jewellery craft</div>
+      <h1>Fractured Cold Gold Ring Craft</h1>
+      <p>This is the visual checklist for the Keyson-style Gold Ring craft from your transcript. It teaches the method: buy a fractured cold base, force resistance suffixes, use Breach quality and catalysts to weight a second resistance, strand 40% attack quality, then use blocker plus Whittling loops to chase attack prefixes.</p>
+      <div class="callout bad"><strong class="bad-text">Budget warning:</strong> this is not a cheap beginner craft. The video itself shows a lucky-looking attempt that still may only break even. Paper-price the whole craft before spending.</div>
+    </div>
+    <div class="ring-card">
+      <div class="item-name">Target Ring Shape</div>
+      <div class="item-line">Base: Gold Ring, item level 82+</div>
+      <div class="item-line fractured">Locked prefix: fractured T1 added Cold Damage to Attacks</div>
+      <div class="item-line suffix">Suffixes: two T1 elemental resists, then rarity, all res, chaos res, or third res</div>
+      <div class="item-line prefix">Other prefixes: T1/T2 flat physical, lightning, or fire to attacks</div>
+      <div class="item-line quality">Final quality: 40% Attack modifiers from Reaver Catalysts</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Fast Visual Flow</h2>
+    <div class="mini-flow">
+      <span>Buy ilvl 82+ fractured cold Gold Ring</span>
+      <span>Chaos until one T1 elemental res</span>
+      <span>Breach essence for +20 max quality</span>
+      <span>Catalyst-weighted Perfect Exalt for second T1 res</span>
+      <span>Reaver to 40%, then remove max-quality mod</span>
+      <span>Block, Whittle, settle, price check</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Shopping List</h2>
+    <div class="grid">
+      <div class="pill">Fractured item level 82+ Gold Ring with T1 added Cold Damage to Attacks.</div>
+      <div class="pill">Chaos Orbs, Orbs of Annulment, Exalted Orbs, Perfect Exalted Orbs.</div>
+      <div class="pill">Perfect Chaos Orbs and Greater Chaos Orbs for Whittling loops.</div>
+      <div class="pill">Essence of the Breach to add +20% maximum jewellery quality.</div>
+      <div class="pill">Xoph's Catalyst or Esh's Catalyst for the second resistance slam.</div>
+      <div class="pill">Reaver Catalysts to set the final 40% attack-modifier quality.</div>
+      <div class="pill">Omens: Sinistral Crystallisation, Dextral Exaltation, Catalysing Exaltation, Sinistral Annulment, Dextral Annulment, Whittling, Light.</div>
+      <div class="pill">Optional: Void Flux if you want to turn an elemental resistance into chaos resistance.</div>
+      <div class="pill">Advanced blocker setup: Ancient Collarbone / preserved-bone method for the temporary mana blocker.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Trade Search</h2>
+    <table>
+      <tr><th>Filter</th><th>Set This</th><th>Reason</th></tr>
+      <tr><td>Item type</td><td>Gold Ring</td><td>The implicit item rarity is part of the finished value.</td></tr>
+      <tr><td>Item level</td><td>82 minimum</td><td>The transcript says below 82 breaks the T1 resistance part of the craft.</td></tr>
+      <tr><td>Fractured mod</td><td>T1 Adds # to # Cold Damage to Attacks</td><td>This is the locked premium prefix. A weak fractured roll cannot be divined later.</td></tr>
+      <tr><td>Bonus starting mod</td><td>Already has T1 elemental resistance</td><td>This skips the first chaos-cycling stage.</td></tr>
+      <tr><td>Corruption</td><td>Not corrupted</td><td>You need to keep modifying the item.</td></tr>
+    </table>
+  </section>
+
+  <section class="flow">
+    <article class="step">
+      <div><div class="num">1</div><h3>Buy The Base</h3><p>Start with item level 82+ Gold Ring and fractured T1 cold damage to attacks.</p></div>
+      <div><p>Do not pay premium for a low T1 fractured roll unless the market discount is huge. The fractured value is locked.</p><div class="callout">Best base: fractured cold plus either open mods or one T1 elemental resistance suffix.</div></div>
+      <div class="state"><h3>Item State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured T1 cold attack damage</div><div class="slot open"><strong>P2</strong>Open</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot open"><strong>S1</strong>Open or random</div><div class="slot open"><strong>S2</strong>Open</div><div class="slot open"><strong>S3</strong>Open</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">2</div><h3>Get One T1 Res</h3><p>If the base does not already have T1 res, isolate one rolling mod and Chaos Orb until T1 elemental resistance.</p></div>
+      <div><p>Stop on T1 fire, cold, or lightning resistance. If you want chaos resistance, you can later use Flux, but only when you understand how many res mods it will convert.</p></div>
+      <div class="state"><h3>Goal State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot open"><strong>P2</strong>Open</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot good"><strong>S1</strong>T1 elemental res</div><div class="slot open"><strong>S2</strong>Open</div><div class="slot open"><strong>S3</strong>Open</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">3</div><h3>Add Max Quality</h3><p>Add a disposable prefix, then use Sinistral Crystallisation plus Essence of the Breach.</p></div>
+      <div><ol><li>Add junk prefix if needed.</li><li>Activate Omen of Sinistral Crystallisation.</li><li>Use Essence of the Breach.</li><li>Confirm +20% maximum quality was added.</li></ol><div class="callout">The junk prefix is there so the essence removes something you do not care about.</div></div>
+      <div class="state"><h3>Goal State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot temp"><strong>P2</strong>+20% maximum quality</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot good"><strong>S1</strong>T1 res</div><div class="slot open"><strong>S2</strong>Open</div><div class="slot open"><strong>S3</strong>Open</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">4</div><h3>Slam Second Res</h3><p>Use catalyst weighting plus a suffix-only Perfect Exalt to chase the second T1 resistance.</p></div>
+      <div><ol><li>Apply Xoph's Catalyst for fire or Esh's Catalyst for lightning.</li><li>Avoid Tul's/cold catalyst for this version.</li><li>Activate Omen of Dextral Exaltation.</li><li>Activate Omen of Catalysing Exaltation.</li><li>Use Perfect Exalted Orb.</li></ol><div class="callout bad">If it misses, use Dextral Annulment to try to remove the bad suffix. If you delete a good res, backtrack.</div></div>
+      <div class="state"><h3>Success State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot temp"><strong>P2</strong>+20 max quality</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot good"><strong>S1</strong>T1 res</div><div class="slot good"><strong>S2</strong>Second T1 res</div><div class="slot open"><strong>S3</strong>Open</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">5</div><h3>Optional Flux</h3><p>If you want chaos res, decide before you accidentally convert too many res mods.</p></div>
+      <div><div class="decision"><div><strong class="good-text">Single chaos res</strong><p>Flux the first elemental res before second res slam.</p></div><div><strong class="warn-text">Double chaos res</strong><p>Flux after two elemental res mods only if that market pays.</p></div><div><strong class="bad-text">Unsure</strong><p>Skip Flux and sell generic res rings.</p></div></div></div>
+      <div class="state"><h3>Rule</h3><div class="slots"><div class="slot good"><strong>Before second slam</strong>Controlled single chaos res option</div><div class="slot bad"><strong>After second slam</strong>Can convert multiple res mods</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">6</div><h3>Strand 40% Attack Quality</h3><p>This is the key click sequence.</p></div>
+      <div><ol><li>Apply Reaver Catalysts until the ring is 40% attack quality.</li><li>Only then activate Omen of Sinistral Annulment.</li><li>Use Orb of Annulment to remove the +20% maximum-quality prefix.</li></ol><div class="callout bad"><strong>Do not reverse this.</strong> If you remove the max-quality mod before Reaver quality is 40%, you lose the special quality setup.</div></div>
+      <div class="state"><h3>After Cleanup</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot open"><strong>P2</strong>Open</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot good"><strong>S1</strong>T1 res</div><div class="slot good"><strong>S2</strong>T1 res</div><div class="slot open"><strong>S3</strong>Open</div></div><p class="quality">Quality should still read 40% Attack modifiers.</p></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">7</div><h3>Set Mana Blocker</h3><p>Use the Collarbone / Omen of Light blocker setup from the video.</p></div>
+      <div><ol><li>Use the prefix-only preserved-bone setup on the ring.</li><li>Look for the high-tier mana blocker the video wants.</li><li>If the blocker is wrong, remove it with Omen of Light plus Annul and retry.</li></ol><div class="callout">The blocker is not there for value. It is there to make Whittling behave better.</div></div>
+      <div class="state"><h3>Temporary State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot temp"><strong>P2</strong>Temporary mana blocker</div><div class="slot open"><strong>P3</strong>Open</div><div class="slot good"><strong>S1</strong>T1 res</div><div class="slot good"><strong>S2</strong>T1 res</div><div class="slot open"><strong>S3</strong>Open</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">8</div><h3>Whittle Loop</h3><p>Fill the item, then use Omen of Whittling and tiered Chaos to replace low-level bad mods.</p></div>
+      <div><ol><li>Fill empty slots using the Perfect Exalt setup.</li><li>Activate Omen of Whittling before the Chaos click.</li><li>Use Perfect Chaos when working prefixes.</li><li>Use Greater Chaos when working suffixes.</li><li>Repeat until the ring has sellable attack flats and a sellable final suffix.</li></ol><div class="decision"><div><strong class="good-text">Keep</strong><p>T1/T2 flat physical, lightning, or fire to attacks.</p></div><div><strong class="warn-text">Maybe</strong><p>Rarity, all res, chaos res, third res depending on comps.</p></div><div><strong class="bad-text">Reroll</strong><p>Low tiers, awkward stats, bad defence rolls.</p></div></div></div>
+      <div class="state"><h3>Target State</h3><div class="slots"><div class="slot locked"><strong>P1</strong>Fractured cold</div><div class="slot good"><strong>P2</strong>T1/T2 attack flat</div><div class="slot good"><strong>P3</strong>T1/T2 attack flat or rarity settle</div><div class="slot good"><strong>S1</strong>T1 res</div><div class="slot good"><strong>S2</strong>T1 res</div><div class="slot good"><strong>S3</strong>Rarity, all res, chaos res, or third res</div></div></div>
+    </article>
+
+    <article class="step">
+      <div><div class="num">9</div><h3>Remove Blocker And Sell</h3><p>When the ring is marketable, remove the temporary blocker and stop.</p></div>
+      <div><ol><li>Use Omen of Light plus Annul to remove the blocker.</li><li>Price check before any extra gamble.</li><li>Compare by base, fractured cold roll, attack quality, attack flats, rarity, all res, and total res.</li></ol><div class="callout good">The profit comes from stopping on sellable outcomes, not from forcing a perfect six-line fantasy every time.</div></div>
+      <div class="state"><h3>Stop Points</h3><div class="slots"><div class="slot good"><strong>Safe stop</strong>Cold + two T1 res + 40% attack quality</div><div class="slot good"><strong>Good stop</strong>Add one T1/T2 attack flat</div><div class="slot good"><strong>Premium stop</strong>Add two attack flats plus rarity/all res</div><div class="slot bad"><strong>Do not chase</strong>More clicks when comps do not justify it</div></div></div>
+    </article>
+  </section>
+
+  <section class="panel">
+    <h2>Exact Click Sequence</h2>
+    <table>
+      <tr><th>Phase</th><th>Click Order</th><th>Continue Only If</th></tr>
+      <tr><td>Base</td><td>Buy fractured T1 cold attack Gold Ring, item level 82+.</td><td>Fractured cold roll is good and item is not corrupted.</td></tr>
+      <tr><td>First res</td><td>Chaos Orb until the rolling mod is T1 elemental resistance.</td><td>You have one T1 res suffix.</td></tr>
+      <tr><td>Breach quality</td><td>Junk prefix -> Omen of Sinistral Crystallisation -> Essence of the Breach.</td><td>The item has +20% maximum quality.</td></tr>
+      <tr><td>Second res</td><td>Xoph/Esh catalysts -> Dextral Exaltation -> Catalysing Exaltation -> Perfect Exalted Orb.</td><td>You hit second T1 res. If not, suffix-annul and retry only if budget allows.</td></tr>
+      <tr><td>Attack quality</td><td>Reaver Catalysts to 40% -> Sinistral Annulment -> Annul.</td><td>+20 max-quality mod is gone and 40% attack quality remains.</td></tr>
+      <tr><td>Blocker</td><td>Collarbone / Omen of Light setup until high-tier temporary mana blocker.</td><td>The blocker is in place.</td></tr>
+      <tr><td>Whittle</td><td>Fill -> Omen of Whittling -> Perfect Chaos for prefixes, Greater Chaos for suffixes.</td><td>You hit T1/T2 attack flats or a strong settle suffix.</td></tr>
+      <tr><td>Finish</td><td>Omen of Light + Annul to remove blocker, then price check.</td><td>Finished value beats the expected value of more gambling.</td></tr>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>Reference Links</h2>
+    <ul>
+      <li><a href="https://www.pathofexile.com/trade2">Official Path of Exile 2 trade</a></li>
+      <li><a href="https://www.poe2wiki.net/wiki/Omen">PoE2 Wiki: Omens</a></li>
+      <li><a href="https://www.poe2wiki.net/wiki/Essence">PoE2 Wiki: Essences</a></li>
+      <li><a href="https://www.poe2wiki.net/wiki/Catalyst">PoE2 Wiki: Catalysts</a></li>
+      <li><a href="https://www.poe2wiki.net/wiki/Flux">PoE2 Wiki: Fluxes</a></li>
+      <li><a href="https://www.poe2wiki.net/wiki/Preserved_bone">PoE2 Wiki: Preserved bones</a></li>
+      <li><a href="https://poe2db.tw/us/Rings">PoE2DB: Rings and modifier reference</a></li>
+      <li><a href="https://poe2db.tw/us/Desecrated_Modifiers">PoE2DB: Desecrated modifiers</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
